@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiPomar", "ApiPomar\ApiPomar.csproj", "{3C360FA6-A45D-4691-92E5-28548C5B4ED0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{08F0ADC2-20C2-4735-B9B4-AFA5C6E95ACA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C360FA6-A45D-4691-92E5-28548C5B4ED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C360FA6-A45D-4691-92E5-28548C5B4ED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C360FA6-A45D-4691-92E5-28548C5B4ED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C360FA6-A45D-4691-92E5-28548C5B4ED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08F0ADC2-20C2-4735-B9B4-AFA5C6E95ACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08F0ADC2-20C2-4735-B9B4-AFA5C6E95ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08F0ADC2-20C2-4735-B9B4-AFA5C6E95ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08F0ADC2-20C2-4735-B9B4-AFA5C6E95ACA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {906DEF27-A607-4BDE-92E7-5AC2F28AC0B6}
+	EndGlobalSection
+EndGlobal

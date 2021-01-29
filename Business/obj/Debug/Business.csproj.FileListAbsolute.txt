@@ -1,0 +1,10 @@
+C:\Users\thiago.mazolli\Desktop\Temp\ApiPomar\Business\bin\Debug\Business.dll.config
+C:\Users\thiago.mazolli\Desktop\Temp\ApiPomar\Business\bin\Debug\Business.dll
+C:\Users\thiago.mazolli\Desktop\Temp\ApiPomar\Business\bin\Debug\Business.pdb
+C:\Users\thiago.mazolli\Desktop\Temp\ApiPomar\Business\bin\Debug\Newtonsoft.Json.dll
+C:\Users\thiago.mazolli\Desktop\Temp\ApiPomar\Business\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\Users\thiago.mazolli\Desktop\Temp\ApiPomar\Business\bin\Debug\Newtonsoft.Json.xml
+C:\Users\thiago.mazolli\Desktop\Temp\ApiPomar\Business\obj\Debug\Business.csprojAssemblyReference.cache
+C:\Users\thiago.mazolli\Desktop\Temp\ApiPomar\Business\obj\Debug\Business.csproj.CopyComplete
+C:\Users\thiago.mazolli\Desktop\Temp\ApiPomar\Business\obj\Debug\Business.dll
+C:\Users\thiago.mazolli\Desktop\Temp\ApiPomar\Business\obj\Debug\Business.pdb
