@@ -113,5 +113,30 @@ namespace Business
 			}
 			return returnValue;
 		}
+
+		public static DateTime ToDateTime(string valueToParse)
+		{
+			DateTime defaultValue = new DateTime();
+			DateTime returnValue;
+
+			if(!DateTime.TryParse(valueToParse, out returnValue))
+			{
+				returnValue = defaultValue;
+			}
+			return returnValue;
+
+			/*
+			try
+			{
+				vretorno = reader.GetDateTime(reader.GetOrdinal(Campo));
+			}
+			catch
+			{
+				return default(DateTime);
+			}
+			return vretorno;
+			*/
+		}
+
 	}
 }

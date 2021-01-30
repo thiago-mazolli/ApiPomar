@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace ApiPomar
 {
-    public static class WebApiConfig
+	public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
@@ -17,9 +14,11 @@ namespace ApiPomar
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                //routeTemplate: "api/{controller}/{id}",
+				routeTemplate: "ApiPomar/{controller}/{id}",
+				defaults: new { id = RouteParameter.Optional }
             );
+
 			config.Formatters.Remove(config.Formatters.XmlFormatter);
 			config.Formatters.JsonFormatter.Indent = true;
 		}

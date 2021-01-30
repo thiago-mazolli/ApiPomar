@@ -39,6 +39,7 @@
       <HintPath>..\packages\Oracle.ManagedDataAccess.19.10.1\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -52,8 +53,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\dColheita.cs" />
+    <Compile Include="DAO\dEspecie.cs" />
+    <Compile Include="DAO\dGrupo.cs" />
+    <Compile Include="Models\cColheita.cs" />
+    <Compile Include="Models\cEspecie.cs" />
+    <Compile Include="Models\cGrupo.cs" />
+    <Compile Include="DAO\dArvore.cs" />
     <Compile Include="DAO\dConfig.cs" />
+    <Compile Include="Models\cArvore.cs" />
     <Compile Include="Models\cConfig.cs" />
+    <Compile Include="Models\cRetorno.cs" />
     <Compile Include="TryParseWithDefault.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
