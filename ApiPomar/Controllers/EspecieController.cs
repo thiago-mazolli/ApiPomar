@@ -63,9 +63,20 @@ namespace ApiPomar.Controllers
 
 
 		// PUT: ApiPomar/Especie/5
-		public void Put(int id, [FromBody]string value)
+		[AcceptVerbs("PUT")]
+		[HttpPut]
+		[Route("Especie/{id}")]
+		public HttpResponseMessage Put(int id, [FromBody]cEspecie json)
 		{
+			string[] retorno = dEspecie.Put(id, json);
+
+			if(retorno[0] == "S")
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, "Não foi possível alterar a espécie. " + retorno[1]);
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, retorno[1]);
 		}
+
 
 
 		// DELETE: ApiPomar/Especie/5

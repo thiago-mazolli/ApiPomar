@@ -81,9 +81,19 @@ namespace ApiPomar.Controllers
 
 
 		// PUT: ApiPomar/Colheita/5
-		public void Put(int id, [FromBody]string value)
-        {
-        }
+		[AcceptVerbs("PUT")]
+		[HttpPut]
+		[Route("Colheita/{id}")]
+		public HttpResponseMessage Put(int id, [FromBody]cColheita json)
+		{
+			string[] retorno = dColheita.Put(id, json);
+
+			if(retorno[0] == "S")
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, "Não foi possível alterar a colheita. " + retorno[1]);
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, retorno[1]);
+		}
 
 
 		// DELETE: ApiPomar/Colheita/5

@@ -106,6 +106,51 @@ namespace Business.DAO
 		}
 
 
+		public static string[] Put(int id, cEspecie obj)
+		{
+			string[] retorno = new string[2];
+
+			try
+			{
+				if(obj == null)
+				{
+					retorno[0] = "S";
+					retorno[1] = "Dados não informados.";
+					return retorno;
+				}
+
+				string sql;
+
+				sql = @"BEGIN ";
+				sql += @"UPDATE mgcustom.api_especie e SET e.esp_st_descricao = upper('{1}') WHERE e.esp_in_codigo = {0};";
+
+				sql = String.Format(sql, id, obj.esp_st_descricao);
+
+				sql += "COMMIT;END;";
+
+				using(var conn = new OracleConnection(dConfig.ObterConteudo().OracleConn))
+				{
+					OracleCommand cmd = new OracleCommand(sql, conn);
+
+					conn.Open();
+					cmd.ExecuteNonQuery();
+					conn.Close();
+					conn.Dispose();
+
+					retorno[0] = "N";
+					retorno[1] = "Espécie alterada com sucesso!";
+					return retorno;
+				}
+			}
+			catch(Exception ex)
+			{
+				retorno[0] = "S";
+				retorno[1] = "Erro ao alterar o registro: " + ex.Message.ToString();
+				return retorno;
+			}
+		}
+
+
 		public static string[] Delete(int id)
 		{
 			string[] retorno = new string[2];

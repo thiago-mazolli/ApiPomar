@@ -61,10 +61,20 @@ namespace ApiPomar.Controllers
 		}
 
 
-        // PUT: api/Grupo/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+		// PUT: ApiPomar/Grupo/5
+		[AcceptVerbs("PUT")]
+		[HttpPut]
+		[Route("Grupo/{id}")]
+		public HttpResponseMessage Put(int id, [FromBody]cGrupo json)
+		{
+			string[] retorno = dGrupo.Put(id, json);
+
+			if(retorno[0] == "S")
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, "Não foi possível alterar o grupo de árvore. " + retorno[1]);
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, retorno[1]);
+		}
 
 
 		// DELETE: ApiPomar/Grupo/5

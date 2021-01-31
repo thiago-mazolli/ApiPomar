@@ -180,6 +180,69 @@ namespace Business.DAO
 		}
 
 
+		public static string[] Put(int id, cArvore obj)
+		{
+			string[] retorno = new string[2];
+
+			try
+			{
+				if(obj == null)
+				{
+					retorno[0] = "S";
+					retorno[1] = "Dados não informados.";
+					return retorno;
+				}
+
+				if(obj.Especie == null)
+				{
+					retorno[0] = "S";
+					retorno[1] = "Código da espécie não informado.";
+					return retorno;
+				}
+
+				if(dEspecie.Get(obj.Especie.esp_in_codigo) == null)
+				{
+					retorno[0] = "S";
+					retorno[1] = "Código da espécie não cadastrado.";
+					return retorno;
+				}
+
+				string sql;
+
+				sql = @"BEGIN ";
+				sql += @"UPDATE mgcustom.api_arvore a
+						    SET a.arv_st_descricao = upper('{1}'),
+							    a.arv_in_idade     = {2},
+							    a.esp_in_codigo    = {3}
+						  WHERE a.arv_in_codigo = {0};";
+
+				sql = String.Format(sql, id, obj.arv_st_descricao, obj.arv_in_idade, obj.Especie.esp_in_codigo);
+
+				sql += "COMMIT;END;";
+
+				using(var conn = new OracleConnection(dConfig.ObterConteudo().OracleConn))
+				{
+					OracleCommand cmd = new OracleCommand(sql, conn);
+
+					conn.Open();
+					cmd.ExecuteNonQuery();
+					conn.Close();
+					conn.Dispose();
+
+					retorno[0] = "N";
+					retorno[1] = "Árvore alterada com sucesso!";
+					return retorno;
+				}
+			}
+			catch(Exception ex)
+			{
+				retorno[0] = "S";
+				retorno[1] = "Erro ao alterar o registro: " + ex.Message.ToString();
+				return retorno;
+			}
+		}
+
+
 		public static string[] Delete(int id)
 		{
 			string[] retorno = new string[2];

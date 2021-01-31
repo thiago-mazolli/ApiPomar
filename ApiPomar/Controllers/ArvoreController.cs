@@ -63,8 +63,18 @@ namespace ApiPomar.Controllers
 
 
 		// PUT: ApiPomar/Arvore/5
-		public void Put(int id, [FromBody]string value)
+		[AcceptVerbs("PUT")]
+		[HttpPut]
+		[Route("Arvore/{id}")]
+		public HttpResponseMessage Put(int id, [FromBody]cArvore json)
 		{
+			string[] retorno = dArvore.Put(id, json);
+
+			if(retorno[0] == "S")
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, "Não foi possível alterar a árvore. " + retorno[1]);
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, retorno[1]);
 		}
 
 

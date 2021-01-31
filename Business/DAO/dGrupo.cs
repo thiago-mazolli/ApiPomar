@@ -141,6 +141,87 @@ namespace Business.DAO
 		}
 
 
+		public static string[] Put(int id, cGrupo obj)
+		{
+			string[] retorno = new string[2];
+
+			try
+			{
+				if(obj == null)
+				{
+					retorno[0] = "S";
+					retorno[1] = "Dados não informados.";
+					return retorno;
+				}
+
+				if(obj.Arvores == null || obj.Arvores.Count() == 0)
+				{
+					retorno[0] = "S";
+					retorno[1] = "Códigos das arvores não informados.";
+					return retorno;
+				}
+
+				foreach(var item in obj.Arvores)
+				{
+					if(dArvore.Get(item.arv_in_codigo) == null)
+					{
+						retorno[0] = "S";
+						retorno[1] = "Códiogo de árvore não cadastrado: " + item.arv_in_codigo;
+						return retorno;
+					}
+				}
+
+				string sql;
+
+				sql = @"BEGIN ";
+
+				sql += @"UPDATE mgcustom.api_grupo g SET g.gru_st_descricao = upper('{1}') WHERE g.gru_in_codigo = {0};";
+
+				sql = String.Format(sql, id, obj.gru_st_descricao);
+
+				sql += @"DELETE FROM mgcustom.api_grupo_arvore g WHERE g.gru_in_codigo = {0};";
+
+				sql = String.Format(sql, id, obj.gru_st_descricao);
+
+				foreach(var item in obj.Arvores)
+				{
+					sql += @"INSERT INTO mgcustom.api_grupo_arvore
+								   (gru_in_codigo,
+									arv_in_codigo)
+								 VALUES
+								   ({0},
+									{1});";
+
+					sql = String.Format(sql, id, item.arv_in_codigo);
+				}
+
+
+				sql += "COMMIT;END;";
+
+
+				using(var conn = new OracleConnection(dConfig.ObterConteudo().OracleConn))
+				{
+					OracleCommand cmd = new OracleCommand(sql, conn);
+
+					conn.Open();
+					cmd.ExecuteNonQuery();
+					conn.Close();
+					conn.Dispose();
+
+					retorno[0] = "N";
+					retorno[1] = "Grupo de árvore cadastrada com sucesso!";
+					return retorno;
+				}
+			}
+			catch(Exception ex)
+			{
+				retorno[0] = "S";
+				retorno[1] = "Erro ao inserir o registro: " + ex.Message.ToString();
+				return retorno;
+			}
+		}
+
+
 		public static string[] Delete(int id)
 		{
 			string[] retorno = new string[2];

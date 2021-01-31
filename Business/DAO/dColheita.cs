@@ -105,7 +105,7 @@ namespace Business.DAO
 							arv_in_codigo)
 						 VALUES
 						   ((SELECT nvl(MAX(c.col_in_codigo), 0) + 1 FROM mgcustom.api_colheita c),
-							TO_DATE('{0}', 'DD/MM/RRRR'),
+							to_date('{0}', 'DD/MM/RRRR'),
 							{1},
 							{2});";
 
@@ -132,6 +132,70 @@ namespace Business.DAO
 			{
 				retorno[0] = "S";
 				retorno[1] = "Erro ao inserir o registro: " + ex.Message.ToString();
+				return retorno;
+			}
+		}
+
+
+		public static string[] Put(int id, cColheita obj)
+		{
+			string[] retorno = new string[2];
+
+			try
+			{
+				if(obj == null)
+				{
+					retorno[0] = "S";
+					retorno[1] = "Dados não informados.";
+					return retorno;
+				}
+
+				if(obj.Arvore == null)
+				{
+					retorno[0] = "S";
+					retorno[1] = "Código da árvore não informado.";
+					return retorno;
+				}
+
+				if(dEspecie.Get(obj.Arvore.arv_in_codigo) == null)
+				{
+					retorno[0] = "S";
+					retorno[1] = "Código da espécie não cadastrado.";
+					return retorno;
+				}
+
+				string sql;
+
+				sql = @"BEGIN ";
+				sql += @"UPDATE mgcustom.api_colheita c
+						    SET c.col_dt_datacolheita = to_date('{1}', 'DD/MM/RRRR'),
+						  	    c.col_re_peso         = {2},
+							    c.arv_in_codigo       = {3}
+						  WHERE c.col_in_codigo = {0};";
+
+				sql = String.Format(sql, id, obj.col_dt_datacolheita, obj.col_re_peso.ToString().Replace(".", "").Replace(",", "."), obj.Arvore.arv_in_codigo);
+				//sql = String.Format(sql, obj.col_dt_datacolheita, TryParseWithDefault.ToDecimal(obj.col_re_peso.ToString(), 0), obj.Arvore.arv_in_codigo);
+
+				sql += "COMMIT;END;";
+
+				using(var conn = new OracleConnection(dConfig.ObterConteudo().OracleConn))
+				{
+					OracleCommand cmd = new OracleCommand(sql, conn);
+
+					conn.Open();
+					cmd.ExecuteNonQuery();
+					conn.Close();
+					conn.Dispose();
+
+					retorno[0] = "N";
+					retorno[1] = "Colheita alterada com sucesso!";
+					return retorno;
+				}
+			}
+			catch(Exception ex)
+			{
+				retorno[0] = "S";
+				retorno[1] = "Erro ao alterar o registro: " + ex.Message.ToString();
 				return retorno;
 			}
 		}
