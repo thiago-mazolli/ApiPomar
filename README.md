@@ -11,42 +11,42 @@ API CRUD para gerencimaneto de um Pomar de um produtor de frutas.
 
 A API está configurada e publicada em ambiente Mega Cloud e pode ser acessada através do link abaixo:
 
-**http://192.168.0.52/ApiPomar**
+**http://168.138.231.9/ApiPomar**
 
 <hr />
 
 Métodos de consulta **(GET)**:
 
-**http://192.168.0.52/ApiPomar/Especie**
+**http://168.138.231.9/ApiPomar/Especie**
 
-**http://192.168.0.52/ApiPomar/Especie/1**
+**http://168.138.231.9/ApiPomar/Especie/1**
 
-**http://192.168.0.52/ApiPomar/Arvore**
+**http://168.138.231.9/ApiPomar/Arvore**
 
-**http://192.168.0.52/ApiPomar/Arvore/1**
+**http://168.138.231.9/ApiPomar/Arvore/1**
 
-**http://192.168.0.52/ApiPomar/Grupo**
+**http://168.138.231.9/ApiPomar/Grupo**
 
-**http://192.168.0.52/ApiPomar/Grupo/1**
+**http://168.138.231.9/ApiPomar/Grupo/1**
 
-**http://192.168.0.52/ApiPomar/Colheita**
+**http://168.138.231.9/ApiPomar/Colheita**
 
-**http://192.168.0.52/ApiPomar/Colheita/1**
+**http://168.138.231.9/ApiPomar/Colheita/1**
 
-**http://192.168.0.52/ApiPomar/Colheita/Data/31-01-2021**
+**http://168.138.231.9/ApiPomar/Colheita/Data/31-01-2021**
 
 <hr />
 
 Métodos de consulta **(POST)**, abaixo exemplos de chamada e corpo da requisição:
 
-**http://localhost:61304/ApiPomar/Especie**
+**http://168.138.231.9/ApiPomar/Especie**
 
 {
 	"Descricao": "Espécie 1"
 }
 
 
-**http://192.168.0.52/ApiPomar/Arvore**
+**http://168.138.231.9/ApiPomar/Arvore**
 
 {
 	"Descricao": "Árvore 1",
@@ -57,7 +57,7 @@ Métodos de consulta **(POST)**, abaixo exemplos de chamada e corpo da requisiç
 }
 
 
-**http://192.168.0.52/ApiPomar/Grupo**
+**http://168.138.231.9/ApiPomar/Grupo**
 
 {
 	"Descricao": "Grupo 1",
@@ -69,7 +69,7 @@ Métodos de consulta **(POST)**, abaixo exemplos de chamada e corpo da requisiç
 }
 
 
-**http://192.168.0.52/ApiPomar/Colheita**
+**http://168.138.231.9/ApiPomar/Colheita**
 
 {
 	"Data": "31/01/2021",
@@ -83,19 +83,19 @@ Métodos de consulta **(POST)**, abaixo exemplos de chamada e corpo da requisiç
 
 Métodos de exclusão **(DELETE)**:
 
-**http://192.168.0.52/ApiPomar/Colheita/1**
+**http://168.138.231.9/ApiPomar/Colheita/1**
 
-**http://192.168.0.52/ApiPomar/Grupo/1**
+**http://168.138.231.9/ApiPomar/Grupo/1**
 
-**http://192.168.0.52/ApiPomar/Arvore/1**
+**http://168.138.231.9/ApiPomar/Arvore/1**
 
-**http://192.168.0.52/ApiPomar/Especie/1**
+**http://168.138.231.9/ApiPomar/Especie/1**
 
 <hr />
 
 Métodos de alteração **(PUT)**:
 
-**http://192.168.0.52/ApiPomar/Colheita/1**
+**http://168.138.231.9/ApiPomar/Colheita/1**
 
 {
 	"Data": "31/01/2021",
@@ -106,7 +106,7 @@ Métodos de alteração **(PUT)**:
 }
 
 
-**http://192.168.0.52/ApiPomar/Grupo/1**
+**http://168.138.231.9/ApiPomar/Grupo/1**
 
 {
 	"Descricao": "Grupo Teste",
@@ -121,7 +121,7 @@ Métodos de alteração **(PUT)**:
 }
 
 
-**http://192.168.0.52/ApiPomar/Arvore/1**
+**http://168.138.231.9/ApiPomar/Arvore/1**
 
 {
 	"Descricao": "Árvore Teste",
@@ -132,7 +132,7 @@ Métodos de alteração **(PUT)**:
 }
 
 
-**http://192.168.0.52/ApiPomar/Especie/1**
+**http://168.138.231.9/ApiPomar/Especie/1**
 
 {
 	"Descricao": "Espécie Teste"
