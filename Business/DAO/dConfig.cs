@@ -13,7 +13,7 @@ namespace Business.DAO
 			string texto;
 
 			if(HttpRuntime.AppDomainAppId != null)
-				texto = File.ReadAllText(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + @"Config.json");
+				texto = File.ReadAllText(HttpContext.Current.Request.PhysicalApplicationPath + @"Config.json");
 			else
 				texto = File.ReadAllText(Application.StartupPath + @"\Config.json");
 

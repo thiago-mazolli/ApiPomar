@@ -11,6 +11,7 @@ namespace Business.DAO
 	{
 		private static List<cArvore> listArvore = new List<cArvore>();
 
+
 		public static List<cArvore> GetAll()
 		{
 
@@ -110,109 +111,110 @@ namespace Business.DAO
 			}
 		}
 
-		//public static cRetorno Add(cArvore objArvore) {
-		//	try
-		//	{
-		//		if(objArvore == null)
-		//		{
-		//			throw new ArgumentNullException("item");
-		//		}
 
-		//		string sql;
+		public static string[] Post(cArvore obj)
+		{
+			string[] retorno = new string[2];
 
-		//		sql = @"BEGIN";
-		//		sql += @"
-		//                      INSERT INTO MGADO.ADO_INT_AGENTES
-		//                        (INT_ST_OPERACAO,
-		//                         INT_DT_OPERACAO,
-		//                         AGN_ST_CPF,
-		//                         AGN_ST_NOME,
-		//                         AGN_CH_TIPOPESSOAFJ,
-		//                         UF_ST_SIGLA,
-		//                         PA_ST_SIGLA,
-		//                         AGN_ST_STATUS,
-		//                         AGN_DT_INICIOMOV,
-		//                         AGN_ST_CNPJ_EMPRESA,
-		//                         FNC_ST_ALTERNATIVO,
-		//                         PRO_ST_CODIGO,
-		//                         TIP_ST_ALTERNATIVO,
-		//                         TUR_ST_ALTERNATIVO,
-		//                         AGN_CH_MULTIOBRA,
-		//                         AGN_DT_NASCIMENTO)
-		//                      VALUES
-		//                        ('{0}',--INT_ST_OPERACAO,
-		//                         to_date('{1}','DD/MM/RRRR'),--INT_DT_OPERACAO,
-		//                         '{2}',--AGN_ST_CPF,
-		//                         '{3}',--AGN_ST_NOME,
-		//                         '{4}',--AGN_CH_TIPOPESSOAFJ,
-		//                         '{5}',--UF_ST_SIGLA,
-		//                         '{6}',--PA_ST_SIGLA,
-		//                         '{7}',--AGN_ST_STATUS,
-		//                         TO_DATE('{8}','DD/MM/RRRR'),--AGN_DT_INICIOMOV,
-		//                         '{9}',--AGN_ST_CNPJ_EMPRESA,
-		//                         '{10}',--FNC_ST_ALTERNATIVO,
-		//                         '{11}',--PRO_ST_CODIGO,
-		//                         '{12}',--TIP_ST_ALTERNATIVO,
-		//                         '{13}',--TUR_ST_ALTERNATIVO,
-		//                         '{14}',--AGN_CH_MULTIOBRA,
-		//                         TO_DATE('{15}','DD/MM/RRRR'));--AGN_DT_NASCIMENTO);
-		//                       ";
+			try
+			{
+				if(obj == null)
+				{
+					retorno[0] = "S";
+					retorno[1] = "Dados não informados.";
+					return retorno;
+				}
 
+				if(obj.Especie == null)
+				{
+					retorno[0] = "S";
+					retorno[1] = "Código da espécie não informado.";
+					return retorno;
+				}
 
-		//		sql = String.Format(sql,
-		//					  INT_ST_OPERACAO,
-		//					  INT_DT_OPERACAO,
-		//					  AGN_ST_CPF,
-		//					  AGN_ST_NOME,
-		//					  AGN_CH_TIPOPESSOAFJ,
-		//					  UF_ST_SIGLA,
-		//					  PA_ST_SIGLA,
-		//					  AGN_ST_STATUS,
-		//					  AGN_DT_INICIOMOV,
-		//					  AGN_ST_CNPJ_EMPRESA,
-		//					  FNC_ST_ALTERNATIVO,
-		//					  PRO_ST_CODIGO,
-		//					  TIP_ST_ALTERNATIVO,
-		//					  TUR_ST_ALTERNATIVO,
-		//					  AGN_CH_MULTIOBRA,
-		//					  AGN_DT_NASCIMENTO
-		//					  );
+				if(dEspecie.Get(obj.Especie.esp_in_codigo) == null)
+				{
+					retorno[0] = "S";
+					retorno[1] = "Código da espécie não cadastrado.";
+					return retorno;
+				}
 
-		//		sql += "COMMIT;END;";
+				string sql;
 
-		//		using(var oconn = new OracleConnection(ConfigurationSettings.AppSettings["ConnectString"]))
-		//		{
-		//			OracleCommand ocmd = new OracleCommand(sql, oconn);
-		//			try
-		//			{
-		//				oconn.Open();
-		//				ocmd.ExecuteNonQuery();
-		//				oconn.Close();
-		//				return "Processo concluído com sucesso!";
-		//			}
-		//			catch(Exception erro)
-		//			{
-		//				return "Houve o seguinte erro ao inserir os registros no Mega: " + erro.Message.ToString();
-		//			}
-		//		}
+				sql = @"BEGIN ";
+				sql += @"INSERT INTO mgcustom.api_arvore
+						   (arv_in_codigo,
+						    arv_st_descricao,
+							arv_in_idade,
+							esp_in_codigo)
+						 VALUES
+						   ((SELECT nvl(MAX(a.arv_in_codigo), 0) + 1 FROM mgcustom.api_arvore a),
+							upper('{0}'),
+							{1},
+							{2});";
+
+				sql = String.Format(sql, obj.arv_st_descricao, obj.arv_in_idade, obj.Especie.esp_in_codigo);
+
+				sql += "COMMIT;END;";
+
+				using(var conn = new OracleConnection(dConfig.ObterConteudo().OracleConn))
+				{
+					OracleCommand cmd = new OracleCommand(sql, conn);
+
+					conn.Open();
+					cmd.ExecuteNonQuery();
+					conn.Close();
+					conn.Dispose();
+
+					retorno[0] = "N";
+					retorno[1] = "Árvore cadastrada com sucesso!";
+					return retorno;
+				}
+			}
+			catch(Exception ex)
+			{
+				retorno[0] = "S";
+				retorno[1] = "Erro ao inserir o registro: " + ex.Message.ToString();
+				return retorno;
+			}
+		}
 
 
+		public static string[] Delete(int id)
+		{
+			string[] retorno = new string[2];
 
-		//	}
-		//	catch(Exception)
-		//	{
+			try
+			{
+				string sql;
 
-		//		throw;
-		//	}
+				sql = @"BEGIN ";
+				sql += @"DELETE FROM mgcustom.api_arvore a WHERE a.arv_in_codigo = {0};";
 
-		//	if(objArvore == null)
-		//	{
-		//		throw new ArgumentNullException("item");
-		//	}
+				sql = String.Format(sql, id);
 
-		//	arvore.Add(objArvore);
-		//	return objArvore;
-		//}
+				sql += "COMMIT;END;";
 
+				using(var conn = new OracleConnection(dConfig.ObterConteudo().OracleConn))
+				{
+					OracleCommand cmd = new OracleCommand(sql, conn);
+
+					conn.Open();
+					cmd.ExecuteNonQuery();
+					conn.Close();
+					conn.Dispose();
+
+					retorno[0] = "N";
+					retorno[1] = "Árvores excluída com sucesso!";
+					return retorno;
+				}
+			}
+			catch(Exception ex)
+			{
+				retorno[0] = "S";
+				retorno[1] = "Erro ao excluir registro: " + ex.Message.ToString();
+				return retorno;
+			}
+		}
 	}
 }

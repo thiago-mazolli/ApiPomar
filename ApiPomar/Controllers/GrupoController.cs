@@ -27,6 +27,7 @@ namespace ApiPomar.Controllers
 			return Request.CreateResponse(HttpStatusCode.OK, dados);
 		}
 
+
 		// GET: ApiPomar/Grupo/5
 		[AcceptVerbs("GET")]
 		[HttpGet]
@@ -43,19 +44,42 @@ namespace ApiPomar.Controllers
 			return Request.CreateResponse(HttpStatusCode.OK, dados);
 		}
 
-		// POST: api/Grupo
-		public void Post([FromBody]string value)
+
+		// POST: ApiPomar/Grupo
+		[AcceptVerbs("POST")]
+		[HttpDelete]
+		[Route("Grupo")]
+		public HttpResponseMessage Post([FromBody]cGrupo json)
         {
-        }
+			string[] retorno = dGrupo.Post(json);
+
+			if(retorno[0] == "S")
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, "Não foi possível cadastrar o grupo de árvore. " + retorno[1]);
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, retorno[1]);
+		}
+
 
         // PUT: api/Grupo/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Grupo/5
-        public void Delete(int id)
-        {
-        }
-    }
+
+		// DELETE: ApiPomar/Grupo/5
+		[AcceptVerbs("DELETE")]
+		[HttpDelete]
+		[Route("Grupo/{id}")]
+		public HttpResponseMessage Delete(int id)
+		{
+			string[] retorno = dGrupo.Delete(id);
+
+			if(retorno[0] == "S")
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, "Não foi possível excluir o grupo de árvore. " + retorno[1]);
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, retorno[1]);
+		}
+	}
 }

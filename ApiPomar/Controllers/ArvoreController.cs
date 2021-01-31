@@ -12,7 +12,7 @@ namespace ApiPomar.Controllers
 	[RoutePrefix("ApiPomar")]
 	public class ArvoreController : ApiController
 	{
-		// GET: ApiPomar/arvore
+		// GET: ApiPomar/Arvore
 		[AcceptVerbs("GET")]
 		[HttpGet]
 		[Route("Arvore")]
@@ -27,6 +27,7 @@ namespace ApiPomar.Controllers
 
 			return Request.CreateResponse(HttpStatusCode.OK, dados);
 		}
+
 
 		// GET: ApiPomar/Arvore/5
 		[AcceptVerbs("GET")]
@@ -44,19 +45,42 @@ namespace ApiPomar.Controllers
 			return Request.CreateResponse(HttpStatusCode.OK, dados);
 		}
 
+
 		// POST: ApiPomar/Arvore
-		public void Post([FromBody]string value)
+		[AcceptVerbs("POST")]
+		[HttpPost]
+		[Route("Arvore")]
+		public HttpResponseMessage Post([FromBody]cArvore json)
 		{
+			string[] retorno = dArvore.Post(json);
+
+			if(retorno[0] == "S")
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, "Não foi possível cadastrar a árvore. " + retorno[1]);
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, retorno[1]);
 		}
+
 
 		// PUT: ApiPomar/Arvore/5
 		public void Put(int id, [FromBody]string value)
 		{
 		}
 
+
 		// DELETE: ApiPomar/Arvore/5
-		public void Delete(int id)
+		[AcceptVerbs("DELETE")]
+		[HttpDelete]
+		[Route("Arvore/{id}")]
+		public HttpResponseMessage Delete(int id)
 		{
+			string[] retorno = dArvore.Delete(id);
+
+			if(retorno[0] == "S")
+			{
+				return Request.CreateResponse(HttpStatusCode.BadRequest, "Não foi possível excluir a árvore. " + retorno[1]);
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, retorno[1]);
 		}
 	}
 }

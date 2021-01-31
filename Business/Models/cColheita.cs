@@ -11,8 +11,7 @@ namespace Business.DAO
 		public int col_in_codigo { get; set; }
 
 		[JsonProperty(PropertyName = "Data")]
-		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-		public DateTime col_dt_datacolheita { get; set; }
+		public string col_dt_datacolheita { get; set; }
 
 		[JsonProperty(PropertyName = "Peso")]
 		public decimal col_re_peso { get; set; }
